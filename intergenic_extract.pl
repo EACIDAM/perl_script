@@ -28,7 +28,7 @@ open(FILE, $gb_file) or die "Cannot open GenBank file";
 
 my @tab_gene;
 
-#variables
+
 my $id;
 my $desc;
 my $debut;
@@ -101,7 +101,6 @@ while(<FILE>)
 	if($ligne =~ /\/\//)
 	{
 		my $taille = @tab_gene;
-		#creation d'un objet bio::seq pour faciliter l'extraction des rÃ©gions
 		my $obj = Bio::Seq -> new (
 							- id => $id ,
 							- desc => $desc ,
@@ -196,7 +195,7 @@ sub recuperation_region_intergenique
 {
 	my($tab_cds, $taille, $output, $obj) = @_ ;
 
-	#recuperations des infos utiles
+
 	my $desc= $obj -> desc();
 	my $seq = $obj -> seq() ;
 	my $id = $obj -> id() ;
@@ -366,7 +365,10 @@ sub help
 
 	print("
 command line:  intergenic_extract.pl -in GenBank_file -out output_file
-extraction on intergenic regions (in fasta format) from a genbank file with CDS features.
+extraction of intergenic regions (in fasta format) from a genbank file with CDS features.
+description line contain : accession number, nucleic sequence size
+
+installation of the Cds.pm object: Copy the Cds.pm file in the directory containing perl classes (e.g. /usr/bin/perl/5.18) 
 
 
 
