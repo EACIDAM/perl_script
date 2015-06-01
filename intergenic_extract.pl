@@ -30,6 +30,7 @@ my @tab_gene;
 
 
 my $id;
+my $acc;
 my $desc;
 my $debut;
 my $fin;
@@ -58,6 +59,11 @@ while(<FILE>)
 		next;
 	}
 
+	if($ligne =~/^ACCESSION\s+/)
+	{
+		$acc = $';
+		next;
+	}
 
 
 	if($ligne =~ /^DEFINITION\s+/)
@@ -102,7 +108,7 @@ while(<FILE>)
 	{
 		my $taille = @tab_gene;
 		my $obj = Bio::Seq -> new (
-							- id => $id ,
+							- id => $acc ,
 							- desc => $desc ,
 							- seq => $seq ) ;
 
@@ -367,17 +373,10 @@ sub help
 command line:  intergenic_extract.pl -in GenBank_file -out output_file
 extraction of intergenic regions (in fasta format) from a genbank file with CDS features.
 description line contain : accession number, nucleic sequence size
-
 installation of the Cds.pm object: Copy the Cds.pm file in the directory containing perl classes (e.g. /usr/bin/perl/5.18) 
-
-
-
 	
-
 additional option 
-
 	-h 		for help
-
 ");
 
 	exit();
